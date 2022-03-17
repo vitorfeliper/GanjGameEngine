@@ -1,0 +1,5 @@
+
+*.db-wal
+*.opendb
+*.db-shm
+*.db
