@@ -1,4 +1,4 @@
-//Tutorial 1 Solution 2018-09-07 
+// Require component microsoft visual studio compiler tools v143
 
 #include "ErrorLogger.h"
 #pragma comment(lib, "d3d11.lib")
