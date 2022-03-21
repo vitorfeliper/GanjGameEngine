@@ -18,6 +18,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	if (FAILED(hr))
 	{
 		ErrorLogger::Log(hr, "FAILURE");
+
 	}
 	return 0;
 }
