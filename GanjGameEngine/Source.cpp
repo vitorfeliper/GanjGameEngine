@@ -1,6 +1,5 @@
 // Require component microsoft visual studio compiler tools v143
-
-#include "ErrorLogger.h"
+#include "Engine.h"
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "DirectXTK.lib")
 
@@ -10,15 +9,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	HRESULT hr = S_OK;
-	if (SUCCEEDED(hr))
-	{
-		MessageBoxA(NULL, "SUCCESS", "GGE", NULL);
-	}
-	if (FAILED(hr))
-	{
-		ErrorLogger::Log(hr, "FAILURE");
+	Engine engine; //Object
+	
+	engine.Initialize(hInstance, "GanjGame Engine", "GGSCLASS", 800, 600);
 
+	while (engine.ProcessMessages())
+	{
+		engine.Update();
 	}
+
 	return 0;
 }

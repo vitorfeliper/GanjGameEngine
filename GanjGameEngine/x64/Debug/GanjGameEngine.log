@@ -1,5 +1,10 @@
-﻿  ErrorLogger.cpp
+﻿  Engine.cpp
+  ErrorLogger.cpp
+  KeyboardClass.cpp
+  KeyboardEvent.cpp
+  RenderWindow.cpp
   Source.cpp
   StringConverter.cpp
+  WindowContainer.cpp
   Gerando Código...
   GanjGameEngine.vcxproj -> D:\____PROJECTS_VITORDEV\GANJGAME_ENGINE_C++\GanjGameEngine\GanjGameEngine\x64\Debug\GanjGameEngine.exe
