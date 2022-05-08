@@ -1,3 +1,4 @@
 # GanjGameEngine
-IMPORTANT: The scripts inside the GanjGameEngine folder are out of organization, but what matters is the .sln file is perfectly configured and organized, just download and view.
+IMPORTANT: TO USE THE ENGINE, SOME LIBS SHOULD BE REVIEW BECAUSE THE ROOT FOLDER IT'S DIFFERENT FROM PC TO PC AND THE JDK VERSION IS 11.0.3 AND LWJGL 3.2.3
+JAVA Game Engine
 GanjGameEngine is a graphic engine developed by GanjGameStudios, creator of the game Nenequinho Adventure
