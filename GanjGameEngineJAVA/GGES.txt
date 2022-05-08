@@ -1,0 +1,39 @@
+
+License{
+    Codename: VITORDEV
+    Name: Vitor Felipe Ramos Mello
+    Student of Enginering Computer in Universidade do Vale do Itajaí - Itajaí
+
+    copiright 2022©
+
+    The code of this engine is open to everyone, 
+    however the name of the creator must be mentioned and cannot be used for commercial purposes without the 
+    WRITTEN authorization of the programmer and developer VITORDEV or Vitor Felipe Ramos Mello
+}
+
+Implemented{
+    Window Class
+    Mouse Listener
+    Key Listener
+    Input System
+    Main
+    Delta Time
+    Scene Manager
+}
+
+Java Runtime Version = 11.0
+
+DELTA_TIME{
+    nanotime function [
+        1x10⁹ns/1s
+    ]
+
+    flap to
+    nanotime function[
+        1x10¯⁹s/1s
+    ]
+
+    Equals to Frames Per Second(FPS)
+
+    nanoTime() multipli by 1e9(one exponential of nine)
+}

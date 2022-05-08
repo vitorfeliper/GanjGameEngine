@@ -1,5 +1,6 @@
 package GGS;
 
+import Util.Time;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -19,15 +20,39 @@ public class Window {
 
     private long glfwWindow = 0;
 
-    private float r, g, b, a;
+    public float r, g, b, a;
+    private boolean fadeToBlack = false;
 
-    private static Window window;
+    private static Window window = null;
+
+    //private static int currentSceneIdex = -1;
+    private static Scene currentScene = null;
 
     private Window(){ // Class constructor
         this.width = 640;
         this.height = 480;
         this.title = "GGS_GAME";
 
+        r = 1;
+        b = 1;
+        g = 1;
+        a = 1;
+
+    }
+
+    public static void ChangeScene(int newScene){
+        switch (newScene){
+            case 0:
+                currentScene = new LevelEditorScene();
+                //currentScene.Init();
+                break;
+            case 1:
+                currentScene = new LevelScene();
+                break;
+            default:
+                assert  false : "Unknow Scene '" + newScene + "'";
+                break;
+        }
     }
 
     public static Window get(){
@@ -67,7 +92,7 @@ public class Window {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+        glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
 
         // Create the Window
         glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
@@ -98,21 +123,31 @@ public class Window {
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
+
+        Window.ChangeScene(0);
     }
 
     public void loop(){
+        float beginTime = Time.deltaTime();
+        float endTime;
+        float dt = -1.0f;
+
         while(!glfwWindowShouldClose(glfwWindow)){
             // Poll events
             glfwPollEvents();
 
-            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if(KeyListener.isKeyPressed(KeyListener.SPACE)){
 
+            if(dt >= 0f) {
+                currentScene.Update(dt);
             }
-
             glfwSwapBuffers(glfwWindow);
+
+            endTime = Time.deltaTime();
+            dt = endTime - beginTime;
+            beginTime = endTime;
         }
     }
 }
