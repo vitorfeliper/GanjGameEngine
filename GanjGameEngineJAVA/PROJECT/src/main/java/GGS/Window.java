@@ -29,8 +29,8 @@ public class Window {
     private static Scene currentScene = null;
 
     private Window(){ // Class constructor
-        this.width = 640;
-        this.height = 480;
+        this.width = 1366;
+        this.height = 768;
         this.title = "GGS_GAME";
 
         r = 1;
@@ -44,10 +44,11 @@ public class Window {
         switch (newScene){
             case 0:
                 currentScene = new LevelEditorScene();
-                //currentScene.Init();
+                currentScene.Init();
                 break;
             case 1:
                 currentScene = new LevelScene();
+                currentScene.Init();
                 break;
             default:
                 assert  false : "Unknow Scene '" + newScene + "'";
@@ -92,7 +93,7 @@ public class Window {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
+        glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
         // Create the Window
         glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
