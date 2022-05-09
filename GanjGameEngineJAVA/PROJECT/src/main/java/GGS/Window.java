@@ -29,8 +29,8 @@ public class Window {
     private static Scene currentScene = null;
 
     private Window(){ // Class constructor
-        this.width = 1366;
-        this.height = 768;
+        this.width = 640;
+        this.height = 480;
         this.title = "GGS_GAME";
 
         r = 1;

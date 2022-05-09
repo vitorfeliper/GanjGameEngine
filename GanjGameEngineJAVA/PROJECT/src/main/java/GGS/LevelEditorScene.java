@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class LevelEditorScene extends  Scene{
+public class LevelEditorScene extends Scene{
 
     //private boolean changingScene = false;
     //private float timeToChangeScene = 2.0f;

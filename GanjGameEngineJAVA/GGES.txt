@@ -19,6 +19,9 @@ Implemented{
     Main
     Delta Time
     Scene Manager
+    GL Shaders
+    Camera
+    LevelEditor(Prototype Scene 0) logic
 }
 
 Java Runtime Version = 11.0
