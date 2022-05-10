@@ -27,6 +27,38 @@ Implemented{
     Added Texture Atlas
 }
 
+[Data Oriented Design]
+Game Entity System{
+
+    [Type] Data{
+        AI,
+        Rendering System[
+            Sprite
+            UI-Font
+        ],
+        Physics System[
+            Rigidbody,
+            BoxCollider,
+            CircleCollider,
+            CapsuleCollider
+        ]
+    return ECS
+    };
+
+    [Type] Component{
+        GameObjects{
+            Transform
+        },
+        Collider[
+            Box,
+            Circle;
+        ],
+        Render Component[
+            [Require Component Texture2D] SpriteRenderer;
+        ];
+    };
+}
+
 Java Runtime Version = 11.0
 
 DELTA_TIME{
