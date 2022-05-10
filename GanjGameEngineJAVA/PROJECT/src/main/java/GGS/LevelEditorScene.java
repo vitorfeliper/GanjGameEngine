@@ -1,5 +1,7 @@
 package GGS;
 
+import Renderer.Texture;
+import Util.Time;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import Renderer.Shader;
@@ -42,13 +44,12 @@ public class LevelEditorScene extends Scene{
     private int vertexID, fragmentID, shaderProgram;
 
     private float[] vertexArray = {
-        //Position              // Color
-         100.5f, -0.5f  , 0.0f,     1.0f, 0.0f, 0.0f, 1.0f, // Bottom Right 0
-        -0.5f  ,  100.5f, 0.0f,     0.0f, 1.0f, 0.0f, 1.0f, //Top Left      1
-         100.5f,  100.5f, 0.0f,     1.0f, 0.0f, 1.0f, 1.0f, //Top Right     2
-        -0.5f  , -0.5f  , 0.0f,     1.0f, 1.0f, 0.0f, 1.0f, //Bottom Left   3
+        //Position              // Color                       //UV Coordinates
+         100f,      0f,   0.0f,     1.0f, 0.0f, 0.0f, 1.0f,      1, 1, // Bottom Right 0
+           0f,    100f,   0.0f,     0.0f, 1.0f, 0.0f, 1.0f,      0, 0, //Top Left      1
+         100f,    100f,   0.0f,     1.0f, 0.0f, 1.0f, 1.0f,      1, 0, //Top Right     2
+           0f,      0f,   0.0f,     1.0f, 1.0f, 0.0f, 1.0f,      0, 1 //Bottom Left   3
     };
-
     //IMPORTANT: Must be in counter-clockwise order
     private int[] elementArray = {
             /*
@@ -64,6 +65,7 @@ public class LevelEditorScene extends Scene{
     private int vaoID, vboID, eboID;
 
     private Shader defaultShader;
+    private Texture testTexture;
 
     public LevelEditorScene(){
         //System.out.println("Inside Level Editor Scene!!");
@@ -72,9 +74,10 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void Init(){
-        this.camera = new Camera(new Vector2f());
+        this.camera = new Camera(new Vector2f(-200, -300));
         defaultShader = new Shader("assets/Shaders/default.glsl");
         defaultShader.Compile();
+        this.testTexture = new Texture("assets/images/testImage.png");
 
         //==============================================================================================================
         // Generate VAO, VBO, and EBO buffer objects, and send to GPU
@@ -104,19 +107,22 @@ public class LevelEditorScene extends Scene{
         // Add the vertex attribute pointers
         int positionsSize = 3;
         int ColorSize = 4;
-        int floatSizeBytes = 4;
-        int vertexSizeBytes = (positionsSize + ColorSize) * floatSizeBytes;
+        int uvSize = 2;
+        //int floatSizeBytes = 4;
+        int vertexSizeBytes = (positionsSize + ColorSize + uvSize) * Float.BYTES;
         glVertexAttribPointer(0, positionsSize, GL_FLOAT, false, vertexSizeBytes, 0);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, ColorSize, GL_FLOAT, false, vertexSizeBytes, positionsSize * floatSizeBytes);
+        glVertexAttribPointer(1, ColorSize, GL_FLOAT, false, vertexSizeBytes, positionsSize * Float.BYTES);
         glEnableVertexAttribArray(1);
+
+        glVertexAttribPointer(2, uvSize, GL_FLOAT, false, vertexSizeBytes, (positionsSize + ColorSize) * Float.BYTES);
+        glEnableVertexAttribArray(2);
     }
 
 
     @Override
     public void Update(float dt) {
-
         ///Template Code----------------
         //Show FPS
         //System.out.println("" + (int)(1.0f / dt) + " FPS");
@@ -127,11 +133,23 @@ public class LevelEditorScene extends Scene{
         //if(changingScene && timeToChangeScene > 0f) { timeToChangeScene -= dt; Window.get().r -= dt * 5.0f; Window.get().g -= dt * 5.0f; Window.get().b -= dt * 5.0f; }
         //else if(changingScene) { Window.ChangeScene(1); }
         //---------------------------------------------------
+        //camera.position.x = -200.0f;
+        //camera.position.y = -295.0f;
 
-        camera.position.x -= dt * 50.0f;
+        /* Movement Logic
+        if(KeyListener.isKeyPressed(KeyListener.D)) camera.position.x -= dt * 250.0f;
+        if(KeyListener.isKeyPressed(KeyListener.A)) camera.position.x += dt * 250.0f;
+        */
         defaultShader.Use();
+
+        // Upload texture to shader
+        defaultShader.UploadTexture("TEX_SAMPLER", 0);
+        glActiveTexture(GL_TEXTURE0);
+        testTexture.bind();
+
         defaultShader.UploadMat4f("uProjection", camera.getProjectionMatrix());
         defaultShader.UploadMat4f("uView", camera.getViewMatrix());
+        defaultShader.UploadFloat("uTime", Time.deltaTime());
         //Bind the VAO that we're using
         glBindVertexArray(vaoID);
 
