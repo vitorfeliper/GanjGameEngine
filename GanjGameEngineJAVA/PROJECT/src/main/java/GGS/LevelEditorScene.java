@@ -151,7 +151,7 @@ public class LevelEditorScene extends Scene{
         defaultShader.UploadMat4f("uView", camera.getViewMatrix());
         defaultShader.UploadFloat("uTime", Time.deltaTime());
         //Bind the VAO that we're using
-        glBindVertexArray(vaoID);//
+        glBindVertexArray(vaoID);
 
         // Enable the vertex attribute pointers
         glEnableVertexAttribArray(0);
