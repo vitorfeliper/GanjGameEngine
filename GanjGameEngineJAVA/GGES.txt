@@ -22,6 +22,9 @@ Implemented{
     GL Shaders
     Camera
     LevelEditor(Prototype Scene 0) logic
+    Texture 2D reader
+    Shader Compiler Texture2D RGB and RGBA
+    Added Texture Atlas
 }
 
 Java Runtime Version = 11.0
