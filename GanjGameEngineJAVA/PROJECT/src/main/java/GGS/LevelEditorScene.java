@@ -1,5 +1,7 @@
 package GGS;
 
+import Components.FontRenderer;
+import Components.SpriteRenderer;
 import Renderer.Texture;
 import Util.Time;
 import org.joml.Vector2f;
@@ -67,6 +69,9 @@ public class LevelEditorScene extends Scene{
     private Shader defaultShader;
     private Texture testTexture;
 
+    GameObject testObj;
+    private boolean firstTime = false;
+
     public LevelEditorScene(){
         //System.out.println("Inside Level Editor Scene!!");
         //Shader testShader = new Shader("assets/Shaders/default.glsl");
@@ -74,6 +79,13 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void Init(){
+
+        System.out.println("Creating 'test object'");
+        this.testObj = new GameObject("test object");
+        this.testObj.AddComponent(new SpriteRenderer());
+        this.testObj.AddComponent(new FontRenderer());
+        this.AddGameObjectToScene(this.testObj);
+
         this.camera = new Camera(new Vector2f(-200, -300));
         defaultShader = new Shader("assets/Shaders/default.glsl");
         defaultShader.Compile();
@@ -166,5 +178,17 @@ public class LevelEditorScene extends Scene{
         glBindVertexArray(0);
 
         defaultShader.Detach();
+
+        if(!firstTime){
+            System.out.println("Creating gameObject!");
+            GameObject go = new GameObject("Game Test 2");
+            go.AddComponent(new SpriteRenderer());
+            this.AddGameObjectToScene(go);
+            firstTime = true;
+        }
+
+        for(GameObject go : this.gameObjects){
+            go.Update(dt);
+        }
     }
 }

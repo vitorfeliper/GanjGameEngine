@@ -25,6 +25,9 @@ Implemented{
     Texture 2D reader
     Shader Compiler Texture2D RGB and RGBA
     Added Texture Atlas
+    GameObject
+    SpriteRendererClass
+    FontRendererClass
 }
 
 [Data Oriented Design]
@@ -57,6 +60,43 @@ Game Entity System{
             [Require Component Texture2D] SpriteRenderer;
         ];
     };
+}
+
+LifeCycle{
+    Is scene is running? Y/N
+        1.Create all GameObjects => foreach:
+            Add all components
+        2. Start all GameObjects => foreach Component:
+            Start Component
+        3.Run Scene
+            1)Create GameObjects
+                Add all components
+            2)Add GameObject to scene
+                Start GameObject
+}
+
+BatchRendering{
+    Classes{
+        Renderer[
+            Add(GameObject obj);
+            Render();
+        ]
+        RenderBatch[
+            Start();
+            AddSprite(SpriteRenderer spr);
+            int[] generateIndices();
+            Render();
+            loadVertexProperties(int index)
+        ]
+
+        List<RenderBatch>[
+            Shader shader;
+            SpriteRenderer[] sprites;
+            float[] vertices;
+            int vaoID, vboID;
+        ]
+
+    }
 }
 
 Java Runtime Version = 11.0
