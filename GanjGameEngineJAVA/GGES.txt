@@ -28,6 +28,8 @@ Implemented{
     GameObject
     SpriteRendererClass
     FontRendererClass
+    BatchRenderer
+    Renderer
 }
 
 [Data Oriented Design]

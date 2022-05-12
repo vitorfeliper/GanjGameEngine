@@ -1,10 +1,13 @@
 package GGS;
 
+import Renderer.Renderer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Scene {
 
+    protected Renderer renderer = new Renderer();
     protected Camera camera;
 
     private boolean isRunning = false;
@@ -21,6 +24,7 @@ public abstract class Scene {
     public void Start(){
         for(GameObject go : gameObjects){
             go.Start();
+            this.renderer.Add(go);
         }
         isRunning = true;
     }
@@ -32,9 +36,14 @@ public abstract class Scene {
         else{
             gameObjects.add(go);
             go.Start();
+            this.renderer.Add(go);
         }
     }
 
     public abstract void Update(float dt);
+
+    public Camera camera(){
+        return this.camera;
+    }
 
 }
