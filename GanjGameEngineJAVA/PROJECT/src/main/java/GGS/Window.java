@@ -33,10 +33,10 @@ public class Window {
         this.height = 480;
         this.title = "GGS_GAME";
 
-        r = 1;
-        b = 1;
-        g = 1;
-        a = 1;
+        r = 0;
+        b = 0;
+        g = 0;
+        a = 0;
 
     }
 

@@ -2,6 +2,7 @@ package Renderer;
 
 import Components.SpriteRenderer;
 import GGS.Window;
+import Util.AssetPool;
 import org.joml.Vector4f;
 
 import static org.lwjgl.opengl.GL15.*;
@@ -30,8 +31,7 @@ public class RenderBatch {
     private Shader shader;
 
     public RenderBatch(int maxBatchSize){
-        shader = new Shader("assets/Shaders/default.glsl");
-        shader.Compile();
+        shader = AssetPool.getShader("assets/Shaders/default.glsl");
         this.sprites = new SpriteRenderer[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
 
