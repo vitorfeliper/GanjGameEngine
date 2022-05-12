@@ -30,6 +30,7 @@ Implemented{
     FontRendererClass
     BatchRenderer
     Renderer
+    AssetPool
 }
 
 [Data Oriented Design]

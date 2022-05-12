@@ -1,6 +1,5 @@
 package GGS;
 
-import Util.Time;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -135,7 +134,7 @@ public class Window {
     }
 
     public void loop(){
-        float beginTime = Time.deltaTime();
+        float beginTime = (float)glfwGetTime();
         float endTime;
         float dt = -1.0f;
 
@@ -152,7 +151,7 @@ public class Window {
             }
             glfwSwapBuffers(glfwWindow);
 
-            endTime = Time.deltaTime();
+            endTime = (float)glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
         }

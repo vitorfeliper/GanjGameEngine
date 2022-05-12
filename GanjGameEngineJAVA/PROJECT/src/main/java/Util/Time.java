@@ -5,3 +5,4 @@ public class Time {
     public static float deltaTime(){ return (float)((System.nanoTime() - timeStarted) * 1E-9); }
 }
 
+

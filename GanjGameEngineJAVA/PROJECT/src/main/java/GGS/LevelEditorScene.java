@@ -3,7 +3,6 @@ package GGS;
 import Components.SpriteRenderer;
 import Util.AssetPool;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
 
 public class LevelEditorScene extends Scene{
 
@@ -16,34 +15,13 @@ public class LevelEditorScene extends Scene{
     public void Init(){
         this.camera = new Camera(new Vector2f(-250f, 0f));
 
-        int xOffset = 10;
-        int yOffset = 10;
+        GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
+        obj1.AddComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage.png")));
+        this.AddGameObjectToScene(obj1);
 
-        float totalWidth = (float)(600 - xOffset * 2);
-        float totalHeight = (float)(300 - yOffset * 2);
-        float sizeX = totalWidth / 100.0f;
-        float sizeY = totalHeight / 100.0f;
-
-        /*
-        OBS: The current shader default.glsl can read all the colors of the Vector4f
-        type ie all the existing hexadecimal colors the Zolor and Wcolor
-        variables carry will carry color values that will be interpreted,
-        changing these variables implies changing the object's color
-        * */
-
-        float ColorZ = 1.0f;
-        float ColorW = 1.0f;
-
-        for(int x = 0; x < 100; x++){
-            for(int y = 0; y < 100; y++){
-                float xPos = xOffset + (x * sizeX);
-                float yPos = yOffset + (y * sizeY);
-
-                GameObject go = new GameObject("Obj" + x + "" + y, new Transform(new Vector2f(xPos, yPos), new Vector2f(sizeX, sizeY)));
-                go.AddComponent(new SpriteRenderer(new Vector4f(xPos / totalWidth, yPos / totalHeight, ColorZ, ColorW)));
-                this.AddGameObjectToScene(go);
-            }
-        }
+        GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
+        obj2.AddComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage2.png")));
+        this.AddGameObjectToScene(obj2);
 
         LoadResources();
     }
