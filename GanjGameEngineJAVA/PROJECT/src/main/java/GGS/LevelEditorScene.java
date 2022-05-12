@@ -23,13 +23,23 @@ public class LevelEditorScene extends Scene{
         float sizeX = totalWidth / 100.0f;
         float sizeY = totalHeight / 100.0f;
 
+        /*
+        OBS: The current shader default.glsl can read all the colors of the Vector4f
+        type ie all the existing hexadecimal colors the Zolor and Wcolor
+        variables carry will carry color values that will be interpreted,
+        changing these variables implies changing the object's color
+        * */
+
+        float Zcolor = 1.0f;
+        float Wcolor = 1.0f;
+
         for(int x = 0; x < 100; x++){
             for(int y = 0; y < 100; y++){
                 float xPos = xOffset + (x * sizeX);
                 float yPos = yOffset + (y * sizeY);
 
                 GameObject go = new GameObject("Obj" + x + "" + y, new Transform(new Vector2f(xPos, yPos), new Vector2f(sizeX, sizeY)));
-                go.AddComponent(new SpriteRenderer(new Vector4f(xPos / totalWidth, yPos / totalHeight, 1, 1)));
+                go.AddComponent(new SpriteRenderer(new Vector4f(xPos / totalWidth, yPos / totalHeight, Zcolor, Wcolor)));
                 this.AddGameObjectToScene(go);
             }
         }
