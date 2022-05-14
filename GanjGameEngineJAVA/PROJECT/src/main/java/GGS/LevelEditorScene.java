@@ -7,6 +7,7 @@ import org.joml.Vector2f;
 
 public class LevelEditorScene extends Scene{
 
+    private GameObject obj1;
 
     public LevelEditorScene(){
 
@@ -21,7 +22,7 @@ public class LevelEditorScene extends Scene{
 
         Spritesheet sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
 
-        GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
+        obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
         obj1.AddComponent(new SpriteRenderer(sprites.getSprite(0)));
         this.AddGameObjectToScene(obj1);
 
@@ -46,20 +47,8 @@ public class LevelEditorScene extends Scene{
     //Scene Function
     @Override
     public void Update(float dt) {
-        //System.out.println("FPS: " + (int)(1.0f / dt));
 
-        if(KeyListener.isKeyPressed(KeyListener.RIGHT_ARROW)){
-            camera.position.x -= 100f * dt;
-        }
-        else if(KeyListener.isKeyPressed(KeyListener.LEFT_ARROW)){
-            camera.position.x += 100f * dt;
-        }
-        if(KeyListener.isKeyPressed(KeyListener.UP_ARROW)){
-            camera.position.y -= 100f * dt;
-        }
-        else if(KeyListener.isKeyPressed(KeyListener.DOWN_ARROW)){
-            camera.position.y += 100f * dt;
-        }
+        obj1.transform.position.x += 10 * dt;
 
         for(GameObject go : this.gameObjects){
             go.Update(dt);
