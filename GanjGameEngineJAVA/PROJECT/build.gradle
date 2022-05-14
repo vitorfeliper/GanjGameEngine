@@ -8,6 +8,7 @@ sourceCompatibility = 1.11
 
 repositories {
     mavenCentral()
+
 }
 
 //dependencies {testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1' testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'}
@@ -15,8 +16,25 @@ repositories {
 project.ext.lwjglVersion = "3.2.3"
 project.ext.jomlVersion = "1.10.4"
 project.ext.lwjglNatives = "natives-windows"
+//project.ext.imguiVersion = '1.76-0.9'
+
+ext {
+    imguiVersion = '1.86.4'
+}
 
 dependencies {
+    // https://mvnrepository.com/artifact/io.imgui.java/natives-windows
+    //implementation 'io.imgui.java:natives-windows:1.76-0.9'
+    ['', '-opengl', '-glfw'].each {
+        implementation "org.lwjgl:lwjgl$it:$lwjglVersion"
+        implementation "org.lwjgl:lwjgl$it::natives-windows"
+    }
+    implementation "io.github.spair:imgui-java-binding:$imguiVersion"
+    implementation "io.github.spair:imgui-java-lwjgl3:$imguiVersion"
+
+    implementation "io.github.spair:imgui-java-natives-windows:$imguiVersion"
+
+    // LWJGL stuff
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation "org.lwjgl:lwjgl"

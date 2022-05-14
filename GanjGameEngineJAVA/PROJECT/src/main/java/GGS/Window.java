@@ -6,16 +6,17 @@ import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11C.glClearColor;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
 
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
     private final String title;
+    //private ImGuiLayer imguiLayer;
 
     private long glfwWindow = 0;
 
@@ -28,8 +29,8 @@ public class Window {
     private static Scene currentScene = null;
 
     private Window(){ // Class constructor
-        this.width = 640;
-        this.height = 480;
+        this.width = 1366;
+        this.height = 768;
         this.title = "GGS_GAME";
 
         r = 0;
@@ -113,6 +114,10 @@ public class Window {
         glfwSetScrollCallback(glfwWindow, MouseListener::MouseScrollCallback);
         //Keyboard
         glfwSetKeyCallback(glfwWindow, KeyListener::KeyCallback);
+        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
+            Window.setWidth(newWidth);
+            Window.setHeight(newHeight);
+        });
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
@@ -130,11 +135,16 @@ public class Window {
         // bindings available for use.
         GL.createCapabilities();
 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        //this.imguiLayer = new ImGuiLayer(glfwWindow);
+        //this.imguiLayer.initImGui();
+
         Window.ChangeScene(0);
     }
 
     public void loop(){
-        float beginTime = (float)glfwGetTime();
+        float beginTime = (float)glfwGetTime(); //Time.deltaTime();//(float)glfwGetTime();
         float endTime;
         float dt = -1.0f;
 
@@ -149,11 +159,28 @@ public class Window {
             if(dt >= 0f) {
                 currentScene.Update(dt);
             }
+            //this.imguiLayer.update(dt);
             glfwSwapBuffers(glfwWindow);
 
-            endTime = (float)glfwGetTime();
+            endTime = (float)glfwGetTime(); //Time.deltaTime(); //(float)glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
         }
+    }
+
+    public static int getWidth() {
+        return get().width;
+    }
+
+    public static int getHeight() {
+        return get().height;
+    }
+
+    public static void setWidth(int newWidth) {
+        get().width = newWidth;
+    }
+
+    public static void setHeight(int newHeight) {
+        get().height = newHeight;
     }
 }

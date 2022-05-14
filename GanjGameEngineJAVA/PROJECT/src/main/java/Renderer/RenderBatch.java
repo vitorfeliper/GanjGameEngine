@@ -94,6 +94,7 @@ public class RenderBatch {
         if(spr.getTexture() != null){
             if(!textures.contains(spr.getTexture())){
                 textures.add(spr.getTexture());
+                // 8, 9
             }
         }
 
@@ -225,5 +226,13 @@ public class RenderBatch {
 
     public boolean hasRoom(){
         return this.hasRoom;
+    }
+
+    public boolean hasTextureRoom(){
+        return this.textures.size() < 8;
+    }
+
+    public boolean hasTexture(Texture tex){
+        return this.textures.contains(tex);
     }
 }
